@@ -32,9 +32,23 @@ client.on("chat", function (channel, userstate, message, self) {
                 break;
             }
             commandTwitch.updateSpam('invasion');
-            let message = commandTwitch.invasion.getMessage();
-            message = command.target + ' > ' + message;
-            client.say(channel, message);
+
+            commandTwitch.invasion.getMessage().then(function(messageToSend) {
+                messageToSend = command.target + ' > ' + messageToSend;
+                client.say(channel, messageToSend);
+            });
+            break;
+        case '!music':
+        case '!musique':
+            if(!commandTwitch.canCommand('music')) {
+                break;
+            }
+            commandTwitch.updateSpam('music');
+
+            commandTwitch.music.getMessage().then(function(messageToSend) {
+                messageToSend = command.target + ' > ' + messageToSend;
+                client.say(channel, messageToSend);
+            }).catch(console.warn);
             break;
     }
 });

@@ -24,5 +24,5 @@ module.exports.getMessage = function() {
         textToUse = placeholder.next;
     }
 
-    return textToUse.replace('%hours%', duration.hours()).replace('%minutes%', duration.minutes()).replace('%seconds%', duration.seconds());
+    return Promise.resolve(textToUse.replace('%hours%', duration.hours()).replace('%minutes%', duration.minutes()).replace('%seconds%', duration.seconds()));
 };
