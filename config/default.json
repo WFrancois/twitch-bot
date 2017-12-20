@@ -1,0 +1,15 @@
+{
+  "channels": ["w_lapin"],
+  "tmi": {
+    "username": "",
+    "password": ""
+  },
+  "db": {
+    "music": {
+      "host": "localhost",
+      "port": "5432",
+      "user": "root",
+      "password": "root"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "twitch-bot",
+  "version": "1.0.0",
+  "description": "Bot for twitch (W_Lapin's channel (for now))",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WFrancois/twitch-bot.git"
+  },
+  "author": "Isak",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/WFrancois/twitch-bot/issues"
+  },
+  "homepage": "https://github.com/WFrancois/twitch-bot#readme",
+  "dependencies": {
+    "config": "^1.28.1",
+    "moment": "^2.20.1",
+    "pg": "^7.4.0",
+    "twitch-js": "^1.2.4"
+  }
+}
