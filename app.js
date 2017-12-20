@@ -25,27 +25,35 @@ client.on("chat", function (channel, userstate, message, self) {
 
     let command = commandTwitch.parseInput(message, userstate['display-name']);
 
-    switch(command.command) {
+    // Elena spam
+    let regexTriggerElena = /elena[0-9]*/gi;
+    if (regexTriggerElena.exec(userstate['username'])) {
+        setTimeout(function () {
+            client.ban(channel, userstate['username'], 'Spam, whisp Isak59 si erreur')
+        }, 1000);
+    }
+
+    switch (command.command) {
         case '!invasion':
         case '!assaut':
-            if(!commandTwitch.canCommand('invasion')) {
+            if (!commandTwitch.canCommand('invasion')) {
                 break;
             }
             commandTwitch.updateSpam('invasion');
 
-            commandTwitch.invasion.getMessage().then(function(messageToSend) {
+            commandTwitch.invasion.getMessage().then(function (messageToSend) {
                 messageToSend = command.target + ' > ' + messageToSend;
                 client.say(channel, messageToSend);
             });
             break;
         case '!music':
         case '!musique':
-            if(!commandTwitch.canCommand('music')) {
+            if (!commandTwitch.canCommand('music')) {
                 break;
             }
             commandTwitch.updateSpam('music');
 
-            commandTwitch.music.getMessage().then(function(messageToSend) {
+            commandTwitch.music.getMessage().then(function (messageToSend) {
                 messageToSend = command.target + ' > ' + messageToSend;
                 client.say(channel, messageToSend);
             }).catch(console.warn);
