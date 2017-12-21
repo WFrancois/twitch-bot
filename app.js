@@ -60,3 +60,7 @@ client.on("chat", function (channel, userstate, message, self) {
             break;
     }
 });
+
+client.on("disconnected", function (reason) {
+    console.warn('Just got disconnect :(', reason);
+});
