@@ -7,6 +7,7 @@ module.exports.getMessage = function () {
         client.connect();
 
         client.query('SELECT * FROM current_music WHERE channel = $1', ['w_lapin']).then(function (rows) {
+            client.end();
             if (rows && rows.rows && rows.rows[0]) {
                 return resolve(rows.rows[0].title)
             } else {
