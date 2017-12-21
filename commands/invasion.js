@@ -25,5 +25,9 @@ module.exports.getMessage = function () {
         textToUse = placeholder.next;
     }
 
-    return Promise.resolve(textToUse.replace('%hours%', duration.hours()).replace('%minutes%', duration.minutes()).replace('%seconds%', duration.seconds()));
+    let finalText = textToUse.replace('%hours%', duration.hours()).replace('%minutes%', duration.minutes()).replace('%seconds%', duration.seconds());
+
+    finalText += ' - https://invasion.wisak.me';
+
+    return Promise.resolve(finalText);
 };
