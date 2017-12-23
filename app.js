@@ -58,6 +58,11 @@ client.on("chat", function (channel, userstate, message, self) {
                 client.say(channel, messageToSend);
             }).catch(console.warn);
             break;
+        case '!updatetry':
+            if(userstate.mod) {
+                client.say('!editcom !try $(touser) > Best try Argus MM: P3 ' + command.target + '%');
+            }
+            break;
     }
 });
 
