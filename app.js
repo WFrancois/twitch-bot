@@ -60,7 +60,7 @@ client.on("chat", function (channel, userstate, message, self) {
             break;
         case '!updatetry':
             if(userstate.mod) {
-                client.say('!editcom !try $(touser) > Best try Argus MM: P3 ' + command.target + '%');
+                client.say(channel, '!editcom !try $(touser) > Best try Argus MM: P3 ' + command.target + '%');
             }
             break;
     }
