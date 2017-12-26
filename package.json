@@ -17,9 +17,9 @@
   },
   "homepage": "https://github.com/WFrancois/twitch-bot#readme",
   "dependencies": {
-    "config": "^1.28.1",
+    "config": "^1.29.0",
     "moment": "^2.20.1",
     "pg": "^7.4.0",
-    "twitch-js": "^1.2.4"
+    "twitch-js": "^1.2.5"
   }
 }
