@@ -33,6 +33,8 @@ client.on("chat", function (channel, userstate, message, self) {
         }, 1000);
     }
 
+    commandTwitch.bet.run(client, channel, userstate, message);
+
     switch (command.command) {
         case '!invasion':
         case '!assaut':

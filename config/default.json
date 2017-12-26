@@ -7,10 +7,17 @@
   "db": {
     "music": {
       "host": "localhost",
-      "port": "5432",
+      "port": 5432,
       "user": "root",
       "password": "root",
       "database": "music"
+    },
+    "bet": {
+      "host": "localhost",
+      "port": 5432,
+      "user": "root",
+      "password": "root",
+      "database": "bet"
     }
   }
 }
