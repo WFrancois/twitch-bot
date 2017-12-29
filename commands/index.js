@@ -20,9 +20,9 @@ module.exports.parseInput = function (message, username) {
 let dontSpam = {};
 
 module.exports.updateSpam = function (name) {
-    dontSpam[name] = parseInt((new Date()).getTime() / 1000);
+    dontSpam[name] = Math.floor((new Date()).getTime() / 1000);
 };
 
 module.exports.canCommand = function (name) {
-    return !dontSpam[name] || parseInt((new Date()).getTime() / 1000) - dontSpam[name] > 30
+    return !dontSpam[name] || Math.floor((new Date()).getTime() / 1000) - dontSpam[name] > 30
 };
