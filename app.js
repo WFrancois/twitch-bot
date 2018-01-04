@@ -64,6 +64,17 @@ client.on("chat", function (channel, userstate, message, self) {
                 client.say(channel, messageToSend);
             }).catch(console.warn);
             break;
+        case '!météo':
+            if (!commandTwitch.canCommand('weather')) {
+                break;
+            }
+            commandTwitch.updateSpam('weather');
+
+            commandTwitch.weather.getMessage(message.slice(7)).then(function (messageToSend) {
+                messageToSend = userstate['display-name'] + ' > ' + messageToSend;
+                client.say(channel, messageToSend);
+            }).catch(console.warn);
+            break;
     }
 });
 

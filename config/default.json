@@ -4,6 +4,9 @@
     "username": "",
     "password": ""
   },
+  "openweather": {
+    "key": ""
+  },
   "db": {
     "music": {
       "host": "localhost",

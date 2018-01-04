@@ -1,6 +1,7 @@
 module.exports.invasion = require('./invasion');
 module.exports.music = require('./music');
 module.exports.bet = require('./bet');
+module.exports.weather = require('./weather');
 
 module.exports.parseInput = function (message, username) {
     username = typeof username !== 'undefined' ? username : null;
