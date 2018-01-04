@@ -24,6 +24,6 @@ module.exports.updateSpam = function (name) {
     dontSpam[name] = Math.floor((new Date()).getTime() / 1000);
 };
 
-module.exports.canCommand = function (name) {
-    return !dontSpam[name] || Math.floor((new Date()).getTime() / 1000) - dontSpam[name] > 30
+module.exports.canCommand = function (name, seconds = 30) {
+    return !dontSpam[name] || Math.floor((new Date()).getTime() / 1000) - dontSpam[name] > seconds;
 };

@@ -54,7 +54,7 @@ client.on("chat", function (channel, userstate, message, self) {
             break;
         case '!music':
         case '!musique':
-            if (!commandTwitch.canCommand('music')) {
+            if (!commandTwitch.canCommand('music', 15)) {
                 break;
             }
             commandTwitch.updateSpam('music');
