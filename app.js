@@ -65,6 +65,9 @@ client.on("chat", function (channel, userstate, message, self) {
             }).catch(console.warn);
             break;
         case '!météo':
+        case '!meteo':
+        case '!méteo':
+        case '!metéo':
             if (!commandTwitch.canCommand('weather')) {
                 break;
             }

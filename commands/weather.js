@@ -15,7 +15,11 @@ module.exports.getMessage = function (location) {
                 return resolve(body.message);
             }
 
-            resolve(body.weather[0].description + ', ' + body.main.temp + ' degré(s)');
+            if(body.cod != 200) {
+                return reject(body);
+            }
+
+            resolve('Météo de ' + body.name + ' (' + body.sys.country + ') : ' + body.weather[0].description + ', ' + body.main.temp + ' degré(s)');
         });
     });
 };
