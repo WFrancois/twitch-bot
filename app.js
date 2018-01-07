@@ -25,12 +25,12 @@ client.on("chat", function (channel, userstate, message, self) {
 
     let command = commandTwitch.parseInput(message, userstate['display-name']);
 
-    // Elena spam
-    let regexTriggerElena = /elena[0-9]*/gi;
-    if (regexTriggerElena.exec(userstate['username'])) {
-        setTimeout(function () {
-            client.ban(channel, userstate['username'], 'Spam, whisp Isak59 si erreur')
-        }, 1000);
+    // Ban bot spam
+    let regexes = [/elena[0-9]*/gi, /^kcanno/gi];
+    for(let regex of regexes) {
+        if(regex.exec(userstate['username'])) {
+            setTimeout(() => client.ban(channel, userstate.username, 'Spam, whisp Isak_ si erreur'), 1000);
+        }
     }
 
     if(message.indexOf('tonton1') !== -1 && message.indexOf('tonton2') !== -1) {
