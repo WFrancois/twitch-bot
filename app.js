@@ -78,6 +78,19 @@ client.on("chat", function (channel, userstate, message, self) {
                 client.say(channel, messageToSend);
             }).catch(console.warn);
             break;
+        case '!wq':
+        case '!worldquest':
+        case '!emissaire':
+        case '!emissary':
+        if (!commandTwitch.canCommand('emissary')) {
+            break;
+        }
+        commandTwitch.updateSpam('emissary');
+        commandTwitch.emissary.getMessage().then(function (messageToSend) {
+            messageToSend = userstate['display-name'] + ' > ' + messageToSend;
+            client.say(channel, messageToSend);
+        }).catch(console.warn);
+        break;
     }
 });
 
