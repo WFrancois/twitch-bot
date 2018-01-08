@@ -87,7 +87,7 @@ client.on("chat", function (channel, userstate, message, self) {
         }
         commandTwitch.updateSpam('emissary');
         commandTwitch.emissary.getMessage().then(function (messageToSend) {
-            messageToSend = userstate['display-name'] + ' > ' + messageToSend;
+            messageToSend = command.target + ' > ' + messageToSend;
             client.say(channel, messageToSend);
         }).catch(console.warn);
         break;
