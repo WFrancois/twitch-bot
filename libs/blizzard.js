@@ -3,8 +3,6 @@ const request = require('request');
 
 const Blizzard = require('blizzard.js');
 
-const NBR_MILLISECONDS_IN_ONE_DAY = 24 * 60 * 60 * 1000;
-
 let savedAccessToken = null;
 
 // See https://github.com/benweier/blizzard.js/blob/master/API.md for details about available API requests
@@ -40,7 +38,7 @@ module.exports.getAccessToken = function() {
             // {"access_token":"xxxxxxxxxxxxxxxx","token_type":"bearer","expires_in":2591920}
             savedAccessToken = {
                 token: body.access_token,
-                expireDate: new Date(Date.now() + NBR_MILLISECONDS_IN_ONE_DAY), // keep access_token only for 24h
+                expireDate: new Date(Date.now() + (body.expires_in * 1000)), // body.expires_in is in seconds
             }
 
             resolve(body.access_token);
