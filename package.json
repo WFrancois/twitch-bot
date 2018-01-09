@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/WFrancois/twitch-bot#readme",
   "dependencies": {
+    "blizzard.js": "^2.1.0",
     "cheerio": "^1.0.0-rc.2",
     "config": "^1.29.0",
     "moment": "^2.20.1",
