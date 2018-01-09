@@ -21,10 +21,28 @@ module.exports.parseInput = function (message, username) {
 
 let dontSpam = {};
 
-module.exports.updateSpam = function (name) {
-    dontSpam[name] = Math.floor((new Date()).getTime() / 1000);
-};
+module.exports.serviceCommand = class Command {
+    constructor(channel) {
+        this.channel = channel;
+    }
 
-module.exports.canCommand = function (name, seconds = 30) {
-    return !dontSpam[name] || Math.floor((new Date()).getTime() / 1000) - dontSpam[name] > seconds;
+    useCommand(name) {
+        if(!dontSpam[this.channel]) {
+            dontSpam[this.channel] = {};
+        }
+
+        dontSpam[this.channel][name] = Math.floor((new Date()).getTime() / 1000);
+    }
+
+    canUseCommand(name, seconds = 30) {
+        if(!dontSpam[this.channel]) {
+            return true;
+        }
+
+        if(!dontSpam[this.channel][name]) {
+            return true;
+        }
+
+        return Math.floor((new Date()).getTime() / 1000) - dontSpam[this.channel][name] > seconds;
+    }
 };

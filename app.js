@@ -23,8 +23,6 @@ client.on("chat", function (channel, userstate, message, self) {
     // Don't listen to my own messages..
     if (self) return;
 
-    let command = commandTwitch.parseInput(message, userstate['display-name']);
-
     // Ban bot spam
     let regexes = [/elena[0-9]*/gi, /^kcanno/gi];
     for(let regex of regexes) {
@@ -39,13 +37,16 @@ client.on("chat", function (channel, userstate, message, self) {
 
     commandTwitch.bet.run(client, channel, userstate, message);
 
+    let serviceCommand = new commandTwitch.serviceCommand(channel);
+    let command = commandTwitch.parseInput(message, userstate['display-name']);
+
     switch (command.command) {
         case '!invasion':
         case '!assaut':
-            if (!commandTwitch.canCommand('invasion')) {
+            if (!serviceCommand.canUseCommand('invasion')) {
                 break;
             }
-            commandTwitch.updateSpam('invasion');
+            serviceCommand.useCommand('invasion');
 
             commandTwitch.invasion.getMessage().then(function (messageToSend) {
                 messageToSend = command.target + ' > ' + messageToSend;
@@ -54,10 +55,10 @@ client.on("chat", function (channel, userstate, message, self) {
             break;
         case '!music':
         case '!musique':
-            if (!commandTwitch.canCommand('music', 15)) {
+            if (!serviceCommand.canUseCommand('music', 15)) {
                 break;
             }
-            commandTwitch.updateSpam('music');
+            serviceCommand.useCommand('music');
 
             commandTwitch.music.getMessage().then(function (messageToSend) {
                 messageToSend = command.target + ' > ' + messageToSend;
@@ -68,12 +69,12 @@ client.on("chat", function (channel, userstate, message, self) {
         case '!meteo':
         case '!méteo':
         case '!metéo':
-            if (!commandTwitch.canCommand('weather')) {
+            if (!serviceCommand.canUseCommand('weather')) {
                 break;
             }
-            commandTwitch.updateSpam('weather');
+            serviceCommand.useCommand('weather');
 
-            commandTwitch.weather.getMessage(message.slice(7)).then(function (messageToSend) {
+            serviceCommand.weather.getMessage(message.slice(7)).then(function (messageToSend) {
                 messageToSend = userstate['display-name'] + ' > ' + messageToSend;
                 client.say(channel, messageToSend);
             }).catch(console.warn);
@@ -82,15 +83,16 @@ client.on("chat", function (channel, userstate, message, self) {
         case '!worldquest':
         case '!emissaire':
         case '!emissary':
-        if (!commandTwitch.canCommand('emissary')) {
+            if (!serviceCommand.canUseCommand('emissary')) {
+                break;
+            }
+            serviceCommand.useCommand('emissary');
+
+            commandTwitch.emissary.getMessage().then(function (messageToSend) {
+                messageToSend = command.target + ' > ' + messageToSend;
+                client.say(channel, messageToSend);
+            }).catch(console.warn);
             break;
-        }
-        commandTwitch.updateSpam('emissary');
-        commandTwitch.emissary.getMessage().then(function (messageToSend) {
-            messageToSend = command.target + ' > ' + messageToSend;
-            client.say(channel, messageToSend);
-        }).catch(console.warn);
-        break;
     }
 });
 
