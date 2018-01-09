@@ -7,6 +7,14 @@
   "openweather": {
     "key": ""
   },
+  "blizzard": {
+    "oauth": {
+      "client_id": "",
+      "client_secret": "",
+      "grant_type": "client_credentials",
+      "token_url": "https://eu.battle.net/oauth/token"
+    }
+  },
   "db": {
     "music": {
       "host": "localhost",
