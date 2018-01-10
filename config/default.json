@@ -4,6 +4,9 @@
     "username": "",
     "password": ""
   },
+  "twitch": {
+    "client_id": ""
+  },
   "openweather": {
     "key": ""
   },
