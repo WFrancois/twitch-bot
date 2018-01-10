@@ -60,7 +60,7 @@ client.on("chat", function (channel, userstate, message, self) {
             }
             serviceCommand.useCommand('music');
 
-            commandTwitch.music.getMessage().then(function (messageToSend) {
+            commandTwitch.music.getMessage(channel.substr(1)).then(function (messageToSend) {
                 messageToSend = command.target + ' > ' + messageToSend;
                 client.say(channel, messageToSend);
             }).catch(console.warn);
