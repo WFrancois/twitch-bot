@@ -74,7 +74,7 @@ client.on("chat", function (channel, userstate, message, self) {
             }
             serviceCommand.useCommand('weather');
 
-            serviceCommand.weather.getMessage(message.slice(7)).then(function (messageToSend) {
+            commandTwitch.weather.getMessage(message.slice(7)).then(function (messageToSend) {
                 messageToSend = userstate['display-name'] + ' > ' + messageToSend;
                 client.say(channel, messageToSend);
             }).catch(console.warn);
