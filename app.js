@@ -33,7 +33,7 @@ client.on("chat", function (channel, userstate, message, self) {
 
     commandTwitch.bet.run(client, channel, userstate, message);
 
-    let serviceCommand = new commandTwitch.serviceCommand(channel);
+    let serviceCommand = new commandTwitch.serviceCommand(channel, userstate.username);
     let command = commandTwitch.parseInput(message, userstate['display-name']);
 
     switch (command.command) {

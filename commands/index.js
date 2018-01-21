@@ -1,3 +1,5 @@
+const config = require('config');
+
 module.exports.invasion = require('./invasion');
 module.exports.music = require('./music');
 module.exports.bet = require('./bet');
@@ -22,12 +24,13 @@ module.exports.parseInput = function (message, username) {
 let dontSpam = {};
 
 module.exports.serviceCommand = class Command {
-    constructor(channel) {
+    constructor(channel, username) {
         this.channel = channel;
+        this.username = username;
     }
 
     useCommand(name) {
-        if(!dontSpam[this.channel]) {
+        if (!dontSpam[this.channel]) {
             dontSpam[this.channel] = {};
         }
 
@@ -35,11 +38,15 @@ module.exports.serviceCommand = class Command {
     }
 
     canUseCommand(name, seconds = 30) {
-        if(!dontSpam[this.channel]) {
+        if (config.has('super_users') && config.get('super_users').indexOf(this.username) !== -1) {
             return true;
         }
 
-        if(!dontSpam[this.channel][name]) {
+        if (!dontSpam[this.channel]) {
+            return true;
+        }
+
+        if (!dontSpam[this.channel][name]) {
             return true;
         }
 
