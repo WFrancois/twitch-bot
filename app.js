@@ -31,10 +31,6 @@ client.on("chat", function (channel, userstate, message, self) {
         }
     }
 
-    if(message.indexOf('tonton1') !== -1 && message.indexOf('tonton2') !== -1) {
-        client.say(channel, 'nop lapiOMG lapiRIP Kappa');
-    }
-
     commandTwitch.bet.run(client, channel, userstate, message);
 
     let serviceCommand = new commandTwitch.serviceCommand(channel);
