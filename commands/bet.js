@@ -39,7 +39,7 @@ module.exports.run = function(client, channel, userstate, message) {
         if (!messageBetAlreadySent[row.id] || (messageBetAlreadySent[row.id] + timeBetweenMessageSend) < (new Date()).getTime()) {
             messageBetAlreadySent[row.id] = (new Date()).getTime();
 
-            let messageToSend = 'Pari en cours ! ' + row.name;
+            let messageToSend = row.name;
 
             let displayLeft = '';
             if(timeLeft < 60) {
@@ -48,20 +48,42 @@ module.exports.run = function(client, channel, userstate, message) {
                 displayLeft = Math.floor(timeLeft / 60) + ' minute(s)';
             }
 
-            messageToSend += ' | Pendant ' + displayLeft + '. Faites "!vote" pour voter !';
-            messageToSend += ' (Par exemple : !vote ' + answerTypes[row.answertypeid].placeholder + ')';
+            if(row.answertypeid === 6) {
+                messageToSend += ' | Pendant ' + displayLeft + '.';
+            } else {
+                messageToSend += ' | Pendant ' + displayLeft + '. Faites "!vote" pour voter !';
+                messageToSend += ' (Par exemple : !vote ' + answerTypes[row.answertypeid].placeholder + ')';
+            }
 
             client.say(channel, messageToSend);
         }
 
         let command = commandTwitch.parseInput(message, userstate['username']);
 
-        if (command.command === '!vote') {
+        if (row.answertypeid !== 6 && command.command === '!vote') {
             clientDb.query('SELECT * FROM vote WHERE betid = $1 AND username = $2', [row.id, userstate['username']]).then((dataVote) => {
                 if(dataVote.rows.length) {
                     clientDb.query('UPDATE vote SET answer = $1 WHERE id = $2', [message.slice(6), dataVote.rows[0].id]).then(() => {});
                 } else {
                     clientDb.query('INSERT INTO vote(betid, username, answer) VALUES($1, $2, $3)', [row.id, userstate.username, message.slice(6)]).then(() => {});
+                }
+            });
+        }
+
+        if(row.answertypeid === 6) {
+            let answer = /^([1-2])\s*/.exec(message);
+
+            if(!answer) {
+                return;
+            }
+
+            answer = row.parameter['team-' + answer[1]];
+
+            clientDb.query('SELECT * FROM vote WHERE betid = $1 AND username = $2', [row.id, userstate['username']]).then((dataVote) => {
+                if(dataVote.rows.length) {
+                    clientDb.query('UPDATE vote SET answer = $1 WHERE id = $2', [answer, dataVote.rows[0].id]).then(() => {});
+                } else {
+                    clientDb.query('INSERT INTO vote(betid, username, answer) VALUES($1, $2, $3)', [row.id, userstate.username, answer]).then(() => {});
                 }
             });
         }
