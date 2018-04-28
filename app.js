@@ -39,7 +39,8 @@ client.on("chat", function (channel, userstate, message, self) {
     if(serviceCommand.canUseCommand('see-gear', 600)) {
         serviceCommand.useCommand('see-gear');
 
-        message = 'Vous pouvez voir le stuff actuel des joueurs  grâce à l\'extension Twitch ! Passez votre souris sur le stream et cliquez sur "Inspect" lapiBLESS'
+        message = 'Vous pouvez voir le stuff actuel des joueurs  grâce à l\'extension Twitch ! Passez votre souris sur le stream et cliquez sur "Inspect" lapiBLESS';
+        client.say(channel, message);
     }
 
     switch (command.command) {
