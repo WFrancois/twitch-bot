@@ -37,8 +37,8 @@ module.exports.serviceCommand = class Command {
         dontSpam[this.channel][name] = Math.floor((new Date()).getTime() / 1000);
     }
 
-    canUseCommand(name, seconds = 30) {
-        if (config.has('super_users') && config.get('super_users').indexOf(this.username) !== -1) {
+    canUseCommand(name, seconds = 30, ignoreSuperUser = false) {
+        if (!ignoreSuperUser && config.has('super_users') && config.get('super_users').indexOf(this.username) !== -1) {
             return true;
         }
 
