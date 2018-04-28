@@ -46,6 +46,16 @@ client.on("chat", function (channel, userstate, message, self) {
             message = command.target + ' > ' + 'Vous pouvez retrouver le bracket Europe sur http://bit.ly/mdi_europe';
             client.say(channel, message);
             break;
+        case '!mdi':
+            if(!serviceCommand.canUseCommand('mdi')) {
+                break;
+            }
+
+            serviceCommand.canUseCommand('mdi');
+
+            message = command.target + ' > Toutes les infos sur le Mythic Dungeon Invitational (MDI) ici: https://worldofwarcraft.com/fr-fr/esports/mythic';
+            client.say(channel, message);
+            break;
         // case '!invasion':
         // case '!assaut':
         //     if (!serviceCommand.canUseCommand('invasion')) {
