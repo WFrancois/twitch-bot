@@ -31,64 +31,73 @@ client.on("chat", function (channel, userstate, message, self) {
         }
     }
 
-    commandTwitch.bet.run(client, channel, userstate, message);
+    // commandTwitch.bet.run(client, channel, userstate, message);
 
     let serviceCommand = new commandTwitch.serviceCommand(channel, userstate.username);
     let command = commandTwitch.parseInput(message, userstate['display-name']);
 
     switch (command.command) {
-        case '!invasion':
-        case '!assaut':
-            if (!serviceCommand.canUseCommand('invasion')) {
+        case '!bracket':
+            if(!serviceCommand.canUseCommand('bracket')) {
                 break;
             }
-            serviceCommand.useCommand('invasion');
+            serviceCommand.canUseCommand('bracket');
 
-            commandTwitch.invasion.getMessage().then(function (messageToSend) {
-                messageToSend = command.target + ' > ' + messageToSend;
-                client.say(channel, messageToSend);
-            });
+            message = command.target + ' > ' + 'Vous pouvez retrouver le bracket Europe sur http://bit.ly/mdi_europe';
+            client.say(channel, message);
             break;
-        case '!music':
-        case '!musique':
-            if (!serviceCommand.canUseCommand('music', 15)) {
-                break;
-            }
-            serviceCommand.useCommand('music');
-
-            commandTwitch.music.getMessage(channel.substr(1)).then(function (messageToSend) {
-                messageToSend = command.target + ' > ' + messageToSend;
-                client.say(channel, messageToSend);
-            }).catch(console.warn);
-            break;
-        case '!météo':
-        case '!meteo':
-        case '!méteo':
-        case '!metéo':
-            if (!serviceCommand.canUseCommand('weather')) {
-                break;
-            }
-            serviceCommand.useCommand('weather');
-
-            commandTwitch.weather.getMessage(message.slice(7)).then(function (messageToSend) {
-                messageToSend = userstate['display-name'] + ' > ' + messageToSend;
-                client.say(channel, messageToSend);
-            }).catch(console.warn);
-            break;
-        case '!wq':
-        case '!worldquest':
-        case '!emissaire':
-        case '!emissary':
-            if (!serviceCommand.canUseCommand('emissary')) {
-                break;
-            }
-            serviceCommand.useCommand('emissary');
-
-            commandTwitch.emissary.getMessage().then(function (messageToSend) {
-                messageToSend = command.target + ' > ' + messageToSend;
-                client.say(channel, messageToSend);
-            }).catch(console.warn);
-            break;
+        // case '!invasion':
+        // case '!assaut':
+        //     if (!serviceCommand.canUseCommand('invasion')) {
+        //         break;
+        //     }
+        //     serviceCommand.useCommand('invasion');
+        //
+        //     commandTwitch.invasion.getMessage().then(function (messageToSend) {
+        //         messageToSend = command.target + ' > ' + messageToSend;
+        //         client.say(channel, messageToSend);
+        //     });
+        //     break;
+        // case '!music':
+        // case '!musique':
+        //     if (!serviceCommand.canUseCommand('music', 15)) {
+        //         break;
+        //     }
+        //     serviceCommand.useCommand('music');
+        //
+        //     commandTwitch.music.getMessage(channel.substr(1)).then(function (messageToSend) {
+        //         messageToSend = command.target + ' > ' + messageToSend;
+        //         client.say(channel, messageToSend);
+        //     }).catch(console.warn);
+        //     break;
+        // case '!météo':
+        // case '!meteo':
+        // case '!méteo':
+        // case '!metéo':
+        //     if (!serviceCommand.canUseCommand('weather')) {
+        //         break;
+        //     }
+        //     serviceCommand.useCommand('weather');
+        //
+        //     commandTwitch.weather.getMessage(message.slice(7)).then(function (messageToSend) {
+        //         messageToSend = userstate['display-name'] + ' > ' + messageToSend;
+        //         client.say(channel, messageToSend);
+        //     }).catch(console.warn);
+        //     break;
+        // case '!wq':
+        // case '!worldquest':
+        // case '!emissaire':
+        // case '!emissary':
+        //     if (!serviceCommand.canUseCommand('emissary')) {
+        //         break;
+        //     }
+        //     serviceCommand.useCommand('emissary');
+        //
+        //     commandTwitch.emissary.getMessage().then(function (messageToSend) {
+        //         messageToSend = command.target + ' > ' + messageToSend;
+        //         client.say(channel, messageToSend);
+        //     }).catch(console.warn);
+        //     break;
     }
 });
 
