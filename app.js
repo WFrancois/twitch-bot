@@ -24,24 +24,30 @@ client.on("chat", function (channel, userstate, message, self) {
     if (self) return;
 
     // Ban bot spam
-    let regexes = [/elena[0-9]*/gi, /^kcanno/gi];
-    for(let regex of regexes) {
-        if(regex.exec(userstate['username'])) {
-            setTimeout(() => client.ban(channel, userstate.username, 'Spam, whisp Isak_ si erreur'), 1000);
-        }
-    }
+    // let regexes = [/elena[0-9]*/gi, /^kcanno/gi];
+    // for(let regex of regexes) {
+    //     if(regex.exec(userstate['username'])) {
+    //         setTimeout(() => client.ban(channel, userstate.username, 'Spam, whisp Isak_ si erreur'), 1000);
+    //     }
+    // }
 
     // commandTwitch.bet.run(client, channel, userstate, message);
 
     let serviceCommand = new commandTwitch.serviceCommand(channel, userstate.username);
     let command = commandTwitch.parseInput(message, userstate['display-name']);
 
+    if(serviceCommand.canUseCommand('see-gear', 600)) {
+        serviceCommand.useCommand('see-gear');
+
+        message = 'Vous pouvez voir le stuff actuel des joueurs  grâce à l\'extension Twitch ! Passez votre souris sur le stream et cliquez sur "Inspect" lapiBLESS'
+    }
+
     switch (command.command) {
         case '!bracket':
             if(!serviceCommand.canUseCommand('bracket')) {
                 break;
             }
-            serviceCommand.canUseCommand('bracket');
+            serviceCommand.useCommand('bracket');
 
             message = command.target + ' > ' + 'Vous pouvez retrouver le bracket Europe sur http://bit.ly/mdi_europe';
             client.say(channel, message);
@@ -51,7 +57,7 @@ client.on("chat", function (channel, userstate, message, self) {
                 break;
             }
 
-            serviceCommand.canUseCommand('mdi');
+            serviceCommand.useCommand('mdi');
 
             message = command.target + ' > Toutes les infos sur le Mythic Dungeon Invitational (MDI) ici: https://worldofwarcraft.com/fr-fr/esports/mythic';
             client.say(channel, message);
