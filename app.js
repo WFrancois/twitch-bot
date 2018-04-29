@@ -32,117 +32,117 @@ client.on("chat", function (channel, userstate, message, self) {
     //     }
     // }
 
-    // commandTwitch.bet.run(client, channel, userstate, message);
+    commandTwitch.bet.run(client, channel, userstate, message);
 
     let serviceCommand = new commandTwitch.serviceCommand(channel, userstate.username);
     let command = commandTwitch.parseInput(message, userstate['display-name']);
 
-    messageNumber ++;
-    if(serviceCommand.canUseCommand('see-gear', 600, true) && messageNumber > 10) {
-        serviceCommand.useCommand('see-gear');
-        messageNumber = 0;
-
-        message = 'Vous pouvez voir le stuff actuel des joueurs  grâce à l\'extension Twitch ! Passez votre souris sur le stream et cliquez sur "Inspect" (en haut à gauche) lapiBLESS';
-        client.say(channel, message);
-    }
+    // messageNumber ++;
+    // if(serviceCommand.canUseCommand('see-gear', 600, true) && messageNumber > 10) {
+    //     serviceCommand.useCommand('see-gear');
+    //     messageNumber = 0;
+    //
+    //     message = 'Vous pouvez voir le stuff actuel des joueurs  grâce à l\'extension Twitch ! Passez votre souris sur le stream et cliquez sur "Inspect" (en haut à gauche) lapiBLESS';
+    //     client.say(channel, message);
+    // }
 
     switch (command.command) {
-        case '!caster':
-        case '!casters':
-            if(!serviceCommand.canUseCommand('caster')) {
-                break;
-            }
-            serviceCommand.useCommand('caster');
-
-            let casters = ['Lapi https://twitch.tv/w_lapin', 'Kusaa https://twitch.tv/kusaaa', 'Tonton https://twitch.tv/krakantas'];
-
-            casters = shuffle(casters);
-
-            message = command.target + ' > Casters français: ' + casters.join(' , ');
-            client.say(channel, message);
-            break;
-        case '!stuff':
-        case '!gear':
-        case '!inspect':
-        case '!extension':
-            if(!serviceCommand.canUseCommand('stuff')) {
-                break;
-            }
-            serviceCommand.useCommand('stuff');
-            message = command.target + ' > Tu peux voir le stuff actuel des joueurs grâce à l\'extension Twitch ! Passe ta souris sur le stream et clique sur "Inspect" (en haut à gauche) lapiBLESS';
-            client.say(channel, message);
-            break;
-        case '!bracket':
-            if(!serviceCommand.canUseCommand('bracket')) {
-                break;
-            }
-            serviceCommand.useCommand('bracket');
-
-            message = command.target + ' > ' + 'Vous pouvez retrouver le bracket Europe sur http://bit.ly/mdi_europe';
-            client.say(channel, message);
-            break;
-        case '!mdi':
-            if(!serviceCommand.canUseCommand('mdi')) {
-                break;
-            }
-
-            serviceCommand.useCommand('mdi');
-
-            message = command.target + ' > Toutes les infos sur le Mythic Dungeon Invitational (MDI) ici: https://worldofwarcraft.com/fr-fr/esports/mythic';
-            client.say(channel, message);
-            break;
-        // case '!invasion':
-        // case '!assaut':
-        //     if (!serviceCommand.canUseCommand('invasion')) {
+        // case '!caster':
+        // case '!casters':
+        //     if(!serviceCommand.canUseCommand('caster')) {
         //         break;
         //     }
-        //     serviceCommand.useCommand('invasion');
+        //     serviceCommand.useCommand('caster');
         //
-        //     commandTwitch.invasion.getMessage().then(function (messageToSend) {
-        //         messageToSend = command.target + ' > ' + messageToSend;
-        //         client.say(channel, messageToSend);
-        //     });
+        //     let casters = ['Lapi https://twitch.tv/w_lapin', 'Kusaa https://twitch.tv/kusaaa', 'Tonton https://twitch.tv/krakantas'];
+        //
+        //     casters = shuffle(casters);
+        //
+        //     message = command.target + ' > Casters français: ' + casters.join(' , ');
+        //     client.say(channel, message);
         //     break;
-        // case '!music':
-        // case '!musique':
-        //     if (!serviceCommand.canUseCommand('music', 15)) {
+        // case '!stuff':
+        // case '!gear':
+        // case '!inspect':
+        // case '!extension':
+        //     if(!serviceCommand.canUseCommand('stuff')) {
         //         break;
         //     }
-        //     serviceCommand.useCommand('music');
-        //
-        //     commandTwitch.music.getMessage(channel.substr(1)).then(function (messageToSend) {
-        //         messageToSend = command.target + ' > ' + messageToSend;
-        //         client.say(channel, messageToSend);
-        //     }).catch(console.warn);
+        //     serviceCommand.useCommand('stuff');
+        //     message = command.target + ' > Tu peux voir le stuff actuel des joueurs grâce à l\'extension Twitch ! Passe ta souris sur le stream et clique sur "Inspect" (en haut à gauche) lapiBLESS';
+        //     client.say(channel, message);
         //     break;
-        // case '!météo':
-        // case '!meteo':
-        // case '!méteo':
-        // case '!metéo':
-        //     if (!serviceCommand.canUseCommand('weather')) {
+        // case '!bracket':
+        //     if(!serviceCommand.canUseCommand('bracket')) {
         //         break;
         //     }
-        //     serviceCommand.useCommand('weather');
+        //     serviceCommand.useCommand('bracket');
         //
-        //     commandTwitch.weather.getMessage(message.slice(7)).then(function (messageToSend) {
-        //         messageToSend = userstate['display-name'] + ' > ' + messageToSend;
-        //         client.say(channel, messageToSend);
-        //     }).catch(console.warn);
+        //     message = command.target + ' > ' + 'Vous pouvez retrouver le bracket Europe sur http://bit.ly/mdi_europe';
+        //     client.say(channel, message);
         //     break;
-        // case '!wq':
-        // case '!worldquest':
-        // case '!emissaire':
-        // case '!emissary':
-        //     if (!serviceCommand.canUseCommand('emissary')) {
+        // case '!mdi':
+        //     if(!serviceCommand.canUseCommand('mdi')) {
         //         break;
         //     }
-        //     serviceCommand.useCommand('emissary');
         //
-        //     commandTwitch.emissary.getMessage().then(function (messageToSend) {
-        //         messageToSend = command.target + ' > ' + messageToSend;
-        //         client.say(channel, messageToSend);
-        //     }).catch(console.warn);
+        //     serviceCommand.useCommand('mdi');
+        //
+        //     message = command.target + ' > Toutes les infos sur le Mythic Dungeon Invitational (MDI) ici: https://worldofwarcraft.com/fr-fr/esports/mythic';
+        //     client.say(channel, message);
         //     break;
+        case '!invasion':
+        case '!assaut':
+            if (!serviceCommand.canUseCommand('invasion')) {
+                break;
+            }
+            serviceCommand.useCommand('invasion');
+
+            commandTwitch.invasion.getMessage().then(function (messageToSend) {
+                messageToSend = command.target + ' > ' + messageToSend;
+                client.say(channel, messageToSend);
+            });
+            break;
+        case '!music':
+        case '!musique':
+            if (!serviceCommand.canUseCommand('music', 15)) {
+                break;
+            }
+            serviceCommand.useCommand('music');
+
+            commandTwitch.music.getMessage(channel.substr(1)).then(function (messageToSend) {
+                messageToSend = command.target + ' > ' + messageToSend;
+                client.say(channel, messageToSend);
+            }).catch(console.warn);
+            break;
+        case '!météo':
+        case '!meteo':
+        case '!méteo':
+        case '!metéo':
+            if (!serviceCommand.canUseCommand('weather')) {
+                break;
+            }
+            serviceCommand.useCommand('weather');
+
+            commandTwitch.weather.getMessage(message.slice(7)).then(function (messageToSend) {
+                messageToSend = userstate['display-name'] + ' > ' + messageToSend;
+                client.say(channel, messageToSend);
+            }).catch(console.warn);
+            break;
+        case '!wq':
+        case '!worldquest':
+        case '!emissaire':
+        case '!emissary':
+            if (!serviceCommand.canUseCommand('emissary')) {
+                break;
+            }
+            serviceCommand.useCommand('emissary');
+
+            commandTwitch.emissary.getMessage().then(function (messageToSend) {
+                messageToSend = command.target + ' > ' + messageToSend;
+                client.say(channel, messageToSend);
+            }).catch(console.warn);
+            break;
     }
 });
 
