@@ -42,7 +42,7 @@ client.on("chat", function (channel, userstate, message, self) {
         serviceCommand.useCommand('see-gear');
         messageNumber = 0;
 
-        message = 'Vous pouvez voir le stuff actuel des joueurs  grâce à l\'extension Twitch ! Passez votre souris sur le stream et cliquez sur "Inspect" lapiBLESS';
+        message = 'Vous pouvez voir le stuff actuel des joueurs  grâce à l\'extension Twitch ! Passez votre souris sur le stream et cliquez sur "Inspect" (en haut à gauche) lapiBLESS';
         client.say(channel, message);
     }
 
@@ -69,7 +69,7 @@ client.on("chat", function (channel, userstate, message, self) {
                 break;
             }
             serviceCommand.useCommand('stuff');
-            message = command.target + ' > Tu peux voir le stuff actuel des joueurs grâce à l\'extension Twitch ! Passe ta souris sur le stream et clique sur "Inspect" lapiBLESS';
+            message = command.target + ' > Tu peux voir le stuff actuel des joueurs grâce à l\'extension Twitch ! Passe ta souris sur le stream et clique sur "Inspect" (en haut à gauche) lapiBLESS';
             client.say(channel, message);
             break;
         case '!bracket':
