@@ -19,6 +19,7 @@ let options = {
 let client = new tmi.client(options);
 client.connect();
 
+let messageNumber = 10;
 client.on("chat", function (channel, userstate, message, self) {
     // Don't listen to my own messages..
     if (self) return;
@@ -36,14 +37,26 @@ client.on("chat", function (channel, userstate, message, self) {
     let serviceCommand = new commandTwitch.serviceCommand(channel, userstate.username);
     let command = commandTwitch.parseInput(message, userstate['display-name']);
 
-    if(serviceCommand.canUseCommand('see-gear', 600, true)) {
+    if(serviceCommand.canUseCommand('see-gear', 600, true) && messageNumber > 10) {
         serviceCommand.useCommand('see-gear');
+        messageNumber ++;
 
         message = 'Vous pouvez voir le stuff actuel des joueurs  grâce à l\'extension Twitch ! Passez votre souris sur le stream et cliquez sur "Inspect" lapiBLESS';
         client.say(channel, message);
     }
 
     switch (command.command) {
+        case '!stuff':
+        case '!gear':
+        case '!inspect':
+        case '!extension':
+            if(!serviceCommand.canUseCommand('stuff')) {
+                break;
+            }
+            serviceCommand.useCommand('stuff');
+            message = command.target + ' > Tu peux voir le stuff actuel des joueurs grâce à l\'extension Twitch ! Passe ta souris sur le stream et clique sur "Inspect" lapiBLESS';
+            client.say(channel, message);
+            break;
         case '!bracket':
             if(!serviceCommand.canUseCommand('bracket')) {
                 break;
