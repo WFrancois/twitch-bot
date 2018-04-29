@@ -58,7 +58,7 @@ client.on("chat", function (channel, userstate, message, self) {
 
             casters = shuffle(casters);
 
-            message = command.target + ' > Casters français: ' + casters.join(', ');
+            message = command.target + ' > Casters français: ' + casters.join(' , ');
             client.say(channel, message);
             break;
         case '!stuff':
