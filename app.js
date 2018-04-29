@@ -37,9 +37,10 @@ client.on("chat", function (channel, userstate, message, self) {
     let serviceCommand = new commandTwitch.serviceCommand(channel, userstate.username);
     let command = commandTwitch.parseInput(message, userstate['display-name']);
 
+    messageNumber ++;
     if(serviceCommand.canUseCommand('see-gear', 600, true) && messageNumber > 10) {
         serviceCommand.useCommand('see-gear');
-        messageNumber ++;
+        messageNumber = 0;
 
         message = 'Vous pouvez voir le stuff actuel des joueurs  grâce à l\'extension Twitch ! Passez votre souris sur le stream et cliquez sur "Inspect" lapiBLESS';
         client.say(channel, message);
