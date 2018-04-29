@@ -47,6 +47,20 @@ client.on("chat", function (channel, userstate, message, self) {
     }
 
     switch (command.command) {
+        case '!caster':
+        case '!casters':
+            if(!serviceCommand.canUseCommand('caster')) {
+                break;
+            }
+            serviceCommand.useCommand('caster');
+
+            let casters = ['Lapi https://twitch.tv/w_lapin', 'Kusaa https://twitch.tv/kusaaa', 'Tonton https://twitch.tv/krakantas'];
+
+            casters = shuffle(casters);
+
+            message = command.target + ' > Casters français: ' + casters.join(', ');
+            client.say(channel, message);
+            break;
         case '!stuff':
         case '!gear':
         case '!inspect':
@@ -135,3 +149,22 @@ client.on("chat", function (channel, userstate, message, self) {
 client.on("disconnected", function (reason) {
     console.warn('Just got disconnect :(', reason);
 });
+
+function shuffle(array) {
+    let currentIndex = array.length, temporaryValue, randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+}
