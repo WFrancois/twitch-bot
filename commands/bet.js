@@ -15,6 +15,8 @@ clientDb.query('SELECT * FROM answertype').then(data => {
 
 let messageBetAlreadySent = {};
 
+let announceEndBet = {};
+
 module.exports.run = function(client, channel, userstate, message) {
     clientDb.query("SELECT *, (EXTRACT(EPOCH FROM current_timestamp - datecreated))::Integer AS \"time_created\" FROM bet ORDER BY datecreated DESC LIMIT 1").then(data => {
         if(!(data && data.rows && data.rows.length)) {
@@ -28,8 +30,17 @@ module.exports.run = function(client, channel, userstate, message) {
         const timeLeft = duration - timeCreated;
 
         if (timeLeft <= 0) {
+            if(announceEndBet[row.id]) {
+                announceEndBet[row.id] = false;
+                client.action(channel, '/!\\ LE PARI EST TERMINÉ /!\\');
+                client.action(channel, '/!\\ LE PARI EST TERMINÉ /!\\');
+                client.action(channel, '/!\\ LE PARI EST TERMINÉ /!\\');
+            }
+
             return;
         }
+
+        announceEndBet[row.id] = true;
 
         let timeBetweenMessageSend = 300000;
         if(timeLeft < 60 * 5) {
