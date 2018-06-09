@@ -17,12 +17,12 @@
   },
   "homepage": "https://github.com/WFrancois/twitch-bot#readme",
   "dependencies": {
-    "blizzard.js": "^2.1.0",
+    "blizzard.js": "^2.3.1",
     "cheerio": "^1.0.0-rc.2",
-    "config": "^1.29.2",
-    "moment": "^2.20.1",
-    "pg": "^7.4.1",
-    "request": "^2.83.0",
+    "config": "^1.30.0",
+    "moment": "^2.22.2",
+    "pg": "^7.4.3",
+    "request": "^2.87.0",
     "twitch-js": "^1.2.10"
   }
 }
