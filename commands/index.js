@@ -12,7 +12,7 @@ module.exports.parseInput = function (message, username) {
     let res = {};
 
     res.command = message[0].toLowerCase();
-    if (message[1]) {
+    if (message[1] && message[1].indexOf('!') === -1 && message[1].indexOf('/')) {
         res.target = message[1];
     } else {
         res.target = username;
