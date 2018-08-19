@@ -143,6 +143,16 @@ client.on("chat", function (channel, userstate, message, self) {
                 client.say(channel, messageToSend);
             }).catch(console.warn);
             break;
+        case '!ilvl':
+            if (!serviceCommand.canUseCommand('ilvl')) {
+                break;
+            }
+            serviceCommand.useCommand('ilvl');
+
+            commandTwitch.ilvl.getMessage().then(messageToSend => {
+                messageToSend = command.target + ' > ' + messageToSend;
+                client.say(channel, messageToSend);
+            }).catch(console.warn);
     }
 });
 

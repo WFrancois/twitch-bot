@@ -5,6 +5,7 @@ module.exports.music = require('./music');
 module.exports.bet = require('./bet');
 module.exports.weather = require('./weather');
 module.exports.emissary = require('./emissary');
+module.exports.ilvl = require('./ilvl');
 
 module.exports.parseInput = function (message, username) {
     username = typeof username !== 'undefined' ? username : null;
