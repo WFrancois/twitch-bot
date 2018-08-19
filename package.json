@@ -19,10 +19,10 @@
   "dependencies": {
     "blizzard.js": "^2.3.1",
     "cheerio": "^1.0.0-rc.2",
-    "config": "^1.30.0",
+    "config": "^1.31.0",
     "moment": "^2.22.2",
     "pg": "^7.4.3",
-    "request": "^2.87.0",
-    "twitch-js": "^1.2.10"
+    "request": "^2.88.0",
+    "twitch-js": "^1.2.14"
   }
 }
