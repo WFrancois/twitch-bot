@@ -91,18 +91,6 @@ client.on("chat", function (channel, userstate, message, self) {
         //     message = command.target + ' > Toutes les infos sur le Mythic Dungeon Invitational (MDI) ici: https://worldofwarcraft.com/fr-fr/esports/mythic';
         //     client.say(channel, message);
         //     break;
-        case '!invasion':
-        case '!assaut':
-            if (!serviceCommand.canUseCommand('invasion')) {
-                break;
-            }
-            serviceCommand.useCommand('invasion');
-
-            commandTwitch.invasion.getMessage().then(function (messageToSend) {
-                messageToSend = command.target + ' > ' + messageToSend;
-                client.say(channel, messageToSend);
-            });
-            break;
         case '!music':
         case '!musique':
             if (!serviceCommand.canUseCommand('music', 15)) {
