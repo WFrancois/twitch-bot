@@ -12,17 +12,15 @@ module.exports.getMessage = function (location) {
             const $ = cheerio.load(body);
             
             const emissaryArray = [];
-            let formatedMsg = 'Emissaires actifs aujourd\'hui : %s, %s et %s';
-            
-            for (let i = 1; i <= 5; i += 2) {
-                emissaryArray.push($('#world-quests-header > div:nth-child(1) > dl > dt:nth-child(' + i + ') > a').text())
-            }
-            
-            let j = 0;
-            while (formatedMsg.indexOf('%s') > -1 && j < emissaryArray.length) {
-              formatedMsg = formatedMsg.replace('%s', emissaryArray[j])
-              j += 1;
-            }        
+            let formatedMsg = 'Emissaires actifs aujourd\'hui : ';
+
+            const emissaryList = $('#world-quests-header').find('> div:nth-child(1) > dl');
+
+            emissaryList.find('dt').each((a, item) => {
+                emissaryArray.push($(item).find('a').text());
+            });
+
+            formatedMsg += emissaryArray.join(', ');
 
             resolve(formatedMsg);
         });
