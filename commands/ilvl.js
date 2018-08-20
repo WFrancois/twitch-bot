@@ -10,7 +10,7 @@ module.exports.getMessage = function (location) {
             realm: 'ysondre',
             name: 'lapintade'
         }).then(response => {
-            resolve('Ilvl de Lapi équipé : ' + response.data.items.averageItemLevelEquipped + ' (en sac : ' + response.data.items.averageItemLevel + ') ; Azerite Item Level : ' + response.data.items.neck.azeriteItem.azeriteLevel);
+            resolve('Ilvl de Lapi (Druide) équipé : ' + response.data.items.averageItemLevelEquipped + ' (en sac : ' + response.data.items.averageItemLevel + ') ; Azerite Level : ' + response.data.items.neck.azeriteItem.azeriteLevel);
         }).catch(reject);
     });
 };
