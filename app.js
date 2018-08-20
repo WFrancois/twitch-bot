@@ -137,10 +137,22 @@ client.on("chat", function (channel, userstate, message, self) {
             }
             serviceCommand.useCommand('ilvl');
 
-            commandTwitch.ilvl.getMessage().then(messageToSend => {
+            commandTwitch.ilvl.getMessage('Lapintade', 'Druide').then(messageToSend => {
                 messageToSend = command.target + ' > ' + messageToSend;
                 client.say(channel, messageToSend);
             }).catch(console.warn);
+            break;
+        case '!ilvldk':
+            if (!serviceCommand.canUseCommand('ilvldk')) {
+                break;
+            }
+            serviceCommand.useCommand('ilvldk');
+
+            commandTwitch.ilvl.getMessage('Lapikaglace', 'DK').then(messageToSend => {
+                messageToSend = command.target + ' > ' + messageToSend;
+                client.say(channel, messageToSend);
+            }).catch(console.warn);
+            break;
     }
 });
 
