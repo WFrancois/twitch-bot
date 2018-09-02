@@ -15,7 +15,13 @@ module.exports.getMessage = function (channel) {
             client.query('SELECT * FROM current_music WHERE channel = $1 AND last_update > (NOW() AT TIME ZONE \'Europe/Paris\') - INTERVAL \'30 second\'', [channel]).then(function (rows) {
                 client.end();
                 if (rows && rows.rows && rows.rows[0]) {
-                    return resolve(rows.rows[0].title)
+                    let message = rows.rows[0].title;
+
+                    if (rows.rows[0].url.indexOf('youtu.be') !== -1) {
+                        message += ' ( ' + rows.rows[0].url + ' )';
+                    }
+
+                    return resolve(message)
                 } else {
                     return resolve('Je n\'ai pas la musique :(');
                 }
