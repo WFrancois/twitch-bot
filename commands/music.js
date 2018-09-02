@@ -12,12 +12,12 @@ module.exports.getMessage = function (channel) {
             const client = new Client(config.get('db.music'));
             client.connect();
 
-            client.query('SELECT * FROM current_music WHERE channel = $1', [channel]).then(function (rows) {
+            client.query('SELECT * FROM current_music WHERE channel = $1 AND last_update > NOW() - INTERVAL \'30 second\'', [channel]).then(function (rows) {
                 client.end();
                 if (rows && rows.rows && rows.rows[0]) {
                     return resolve(rows.rows[0].title)
                 } else {
-                    return reject('not-found');
+                    return resolve('J\'ai pas la musique :(');
                 }
             }).catch(reject);
         });
