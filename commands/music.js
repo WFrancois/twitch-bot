@@ -17,7 +17,7 @@ module.exports.getMessage = function (channel) {
                 if (rows && rows.rows && rows.rows[0]) {
                     return resolve(rows.rows[0].title)
                 } else {
-                    return resolve('J\'ai pas la musique :(');
+                    return resolve('Je n\'ai pas la musique :(');
                 }
             }).catch(reject);
         });
