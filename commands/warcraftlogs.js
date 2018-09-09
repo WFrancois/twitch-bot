@@ -28,10 +28,11 @@ module.exports.getMessage = function () {
                 }
 
                 if (!bossesInfo[fight.name]) {
-                    bossesInfo[fight.name] = {killed: false, pull: 0, name: fight.name};
+                    bossesInfo[fight.name] = {killed: false, pull: 0, name: fight.name, percents: []};
                 }
 
                 bossesInfo[fight.name].pull += 1;
+                bossesInfo[fight.name].percents.push(fight.fightPercentage)
 
                 if (fight.kill) {
                     bossesInfo[fight.name].killed = true;
@@ -49,6 +50,11 @@ module.exports.getMessage = function () {
                     message += ' pull';
                 } else {
                     message += ' try';
+
+                    const minPercent = Math.min(...bossInfo.percents) / 100;
+                    const lastTry = bossInfo.percents[bossInfo.percents.length - 1] / 100;
+
+                    message += ` (Best try: ${minPercent}%, Last try: ${lastTry}%)`;
                 }
 
                 messageSplitted.push(message);
