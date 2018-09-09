@@ -171,7 +171,7 @@ client.on("chat", function (channel, userstate, message, self) {
             serviceCommand.useCommand('try');
 
             commandTwitch.warcraftlogs.getMessage().then(messageToSend => {
-                messageToSend = command.target + ' > ' + messageToSend;
+                messageToSend = command.target + ' > Ce soir : ' + messageToSend;
                 client.say(channel, messageToSend);
             }).catch(console.warn);
             break;
