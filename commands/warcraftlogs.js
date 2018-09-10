@@ -40,7 +40,7 @@ module.exports.getMessage = function () {
                     continue;
                 }
 
-                const fightName = `${fight.name} (${MAP_DIFFICULTY[fight.difficulty]})`;
+                const fightName = `${fight.name} (${MAP_DIFFICULTY[fight.difficulty].shortName})`;
 
                 if (!bossesInfo[fight.name]) {
                     bossesInfo[fight.name] = {killed: false, pull: 0, name: fightName, percents: []};
