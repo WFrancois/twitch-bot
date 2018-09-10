@@ -1,7 +1,20 @@
 const config = require('config');
 const request = require('request');
 
-const url =
+const MAP_DIFFICULTY = {
+    3: {
+        shortName: 'NM',
+        name: 'Normal',
+    },
+    4: {
+        shortName: 'HM',
+        name: 'Heroic',
+    },
+    5: {
+        shortName: 'MM',
+        name: 'Mythic',
+    }
+};
 
 module.exports.getMessage = function () {
     return new Promise((resolve, reject) => {
@@ -27,12 +40,14 @@ module.exports.getMessage = function () {
                     continue;
                 }
 
+                const fightName = `${fight.name} (${MAP_DIFFICULTY[fight.difficulty]})`;
+
                 if (!bossesInfo[fight.name]) {
-                    bossesInfo[fight.name] = {killed: false, pull: 0, name: fight.name, percents: []};
+                    bossesInfo[fight.name] = {killed: false, pull: 0, name: fightName, percents: []};
                 }
 
                 bossesInfo[fight.name].pull += 1;
-                bossesInfo[fight.name].percents.push(fight.fightPercentage)
+                bossesInfo[fight.name].percents.push(fight.fightPercentage);
 
                 if (fight.kill) {
                     bossesInfo[fight.name].killed = true;
