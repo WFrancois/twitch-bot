@@ -164,17 +164,17 @@ client.on("chat", function (channel, userstate, message, self) {
                 client.say(channel, messageToSend);
             }).catch(console.warn);
             break;
-        case '!try':
-            if (!serviceCommand.canUseCommand('try')) {
-                break;
-            }
-            serviceCommand.useCommand('try');
-
-            commandTwitch.warcraftlogs.getMessage().then(messageToSend => {
-                messageToSend = command.target + ' > Ce soir : ' + messageToSend;
-                client.say(channel, messageToSend);
-            }).catch(console.warn);
-            break;
+        // case '!try':
+        //     if (!serviceCommand.canUseCommand('try')) {
+        //         break;
+        //     }
+        //     serviceCommand.useCommand('try');
+        //
+        //     commandTwitch.warcraftlogs.getMessage().then(messageToSend => {
+        //         messageToSend = command.target + ' > Ce soir : ' + messageToSend;
+        //         client.say(channel, messageToSend);
+        //     }).catch(console.warn);
+        //     break;
     }
 });
 
