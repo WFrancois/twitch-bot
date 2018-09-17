@@ -16,9 +16,60 @@ const MAP_DIFFICULTY = {
     }
 };
 
-module.exports.getMessage = function () {
+const bossIds = [2136, 2134, 2145, 2135, 2122];
+
+let cacheWarcraftLogs = [];
+
+module.exports.getMessage = async function () {
+    const reportCodes = config.get('wlog.report_code');
+
+    let fetchPull = [];
+
+    for (const reportCode of reportCodes) {
+        fetchPull.push(getDataWarcraftLogs(reportCode));
+    }
+
+    const reportData = await Promise.all(fetchPull);
+
+    const bossesInfo = mergeReportData(reportData);
+
+    let orderedBossInfo = [];
+
+    for (const bossId of bossIds) {
+        if( bossesInfo[bossId]) {
+            orderedBossInfo.push(bossesInfo[bossId]);
+        }
+    }
+
+    orderedBossInfo = orderedBossInfo.slice(-2); // Only display last two (So current try, and last killed)
+
+    const messageSplitted = [];
+    for (const bossInfo of orderedBossInfo) {
+        let message = bossInfo.name + ': ' + bossInfo.pull;
+        if (bossInfo.killed) {
+            message += ' pull';
+        } else {
+            message += ' try';
+
+            const minPercent = Math.min(...bossInfo.percents) / 100;
+            const lastTry = bossInfo.percents[bossInfo.percents.length - 1] / 100;
+
+            message += ` (Best try: ${minPercent}%, Last try: ${lastTry}%)`;
+        }
+
+        messageSplitted.push(message);
+    }
+
+    return messageSplitted.join(' / ');
+};
+
+function getDataWarcraftLogs(reportCode) {
     return new Promise((resolve, reject) => {
-        const url = `https://www.warcraftlogs.com/v1/report/fights/${config.get('wlog.report_code')}?api_key=${config.get('wlog.api_key')}`;
+        if (cacheWarcraftLogs[reportCode]) {
+            return resolve(cacheWarcraftLogs[reportCode]);
+        }
+
+        const url = `https://www.warcraftlogs.com/v1/report/fights/${reportCode}?api_key=${config.get('wlog.api_key')}`;
 
         request(url, (error, response, body) => {
             if (error) {
@@ -30,7 +81,7 @@ module.exports.getMessage = function () {
             body = JSON.parse(body);
 
             for (const fight of body.fights) {
-                if (!fight.boss) {
+                if (!fight.boss || fight.affixes || bossIds.indexOf(fight.boss) === -1 || fight.difficulty !== 5) {
                     continue;
                 }
 
@@ -43,7 +94,7 @@ module.exports.getMessage = function () {
                 const fightName = `${fight.name} (${MAP_DIFFICULTY[fight.difficulty].shortName})`;
 
                 if (!bossesInfo[fight.name]) {
-                    bossesInfo[fight.name] = {killed: false, pull: 0, name: fightName, percents: []};
+                    bossesInfo[fight.name] = {boss: fight.boss, killed: false, pull: 0, name: fightName, percents: []};
                 }
 
                 bossesInfo[fight.name].pull += 1;
@@ -54,28 +105,42 @@ module.exports.getMessage = function () {
                 }
             }
 
-            const messageSplitted = [];
-            for (let key in bossesInfo) {
-                if (!bossesInfo.hasOwnProperty(key)) continue;
-
-                let bossInfo = bossesInfo[key];
-
-                let message = bossInfo.name + ': ' + bossInfo.pull;
-                if (bossInfo.killed) {
-                    message += ' pull';
-                } else {
-                    message += ' try';
-
-                    const minPercent = Math.min(...bossInfo.percents) / 100;
-                    const lastTry = bossInfo.percents[bossInfo.percents.length - 1] / 100;
-
-                    message += ` (Best try: ${minPercent}%, Last try: ${lastTry}%)`;
-                }
-
-                messageSplitted.push(message);
+            if ((new Date()).getTime() - body.end > 12 * 60 * 1000) {
+                cacheWarcraftLogs[reportCode] = bossesInfo;
             }
 
-            return resolve(messageSplitted.join(' / '));
+            return resolve(bossesInfo);
         })
     });
-};
+}
+
+function mergeReportData (reportData) {
+    const bossInfo = {};
+
+    for (const reportDatum of reportData) {
+        for (let key in reportDatum) {
+            if (!reportDatum.hasOwnProperty(key)) continue;
+
+            const fight = reportDatum[key];
+
+            if (!bossInfo[fight.boss]) {
+                bossInfo[fight.boss] = {
+                    boss: fight.boss,
+                    killed: false,
+                    pull: 0,
+                    name: fight.name,
+                    percents: []
+                }
+            }
+
+            bossInfo[fight.boss].pull += fight.pull;
+            bossInfo[fight.boss].percents.push(...fight.percents);
+
+            if (fight.killed) {
+                bossInfo[fight.boss].killed = true;
+            }
+        }
+    }
+
+    return bossInfo;
+}
