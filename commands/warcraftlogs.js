@@ -137,8 +137,10 @@ function mergeReportData (reportData) {
                 }
             }
 
-            bossInfo[fight.boss].pull += fight.pull;
-            bossInfo[fight.boss].percents.push(...fight.percents);
+            if (!fight.killed) {
+                bossInfo[fight.boss].pull += fight.pull;
+                bossInfo[fight.boss].percents.push(...fight.percents);
+            }
 
             if (fight.killed) {
                 bossInfo[fight.boss].killed = true;
