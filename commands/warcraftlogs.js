@@ -41,13 +41,16 @@ module.exports.getMessage = async function () {
         }
     }
 
-    orderedBossInfo = orderedBossInfo.slice(-2); // Only display last two (So current try, and last killed)
-
     const messageSplitted = [];
     for (const bossInfo of orderedBossInfo) {
         let message = bossInfo.name + ': ' + bossInfo.pull;
         if (bossInfo.killed) {
             message += ' pull';
+
+            // Only display kills from the last two days
+            if ((new Date().getTime()) - (bossInfo.killedTime) > 48 * 60 * 60 * 1000) {
+                continue;
+            }
         } else {
             message += ' try';
 
@@ -102,10 +105,11 @@ function getDataWarcraftLogs(reportCode) {
 
                 if (fight.kill) {
                     bossesInfo[fight.name].killed = true;
+                    bossesInfo[fight.name].killedTime = body.start + fight.start_time;
                 }
             }
 
-            if ((new Date()).getTime() - body.end > 12 * 60 * 1000) {
+            if ((new Date()).getTime() - body.end > 12 * 60 * 60 * 1000) {
                 cacheWarcraftLogs[reportCode] = bossesInfo;
             }
 
@@ -138,6 +142,7 @@ function mergeReportData (reportData) {
 
             if (fight.killed) {
                 bossInfo[fight.boss].killed = true;
+                bossInfo[fight.boss].killedTime = fight.killedTime;
             }
         }
     }
