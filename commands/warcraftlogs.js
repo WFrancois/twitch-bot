@@ -16,7 +16,7 @@ const MAP_DIFFICULTY = {
     }
 };
 
-const bossIds = [2136, 2134, 2145, 2135, 2122];
+const bossIds = [2136, 2134, 2128, 2145, 2122];
 
 let cacheWarcraftLogs = [];
 
