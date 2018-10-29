@@ -29,6 +29,11 @@ module.exports.serviceCommand = class Command {
     constructor(channel, username) {
         this.channel = channel;
         this.username = username;
+
+        this.allowedCommand = {
+          "#w_lapin": ['music', 'weather', 'emissary', 'ilvl', 'ilvldk', 'ilvlsham'],
+          "#warcraftfr": ['stuff', 'bracket'],
+        };
     }
 
     useCommand(name) {
@@ -40,6 +45,10 @@ module.exports.serviceCommand = class Command {
     }
 
     canUseCommand(name, seconds = 30, ignoreSuperUser = false) {
+        if (this.allowedCommand[this.channel].indexOf(name) === -1) {
+            return false;
+        }
+
         if (!ignoreSuperUser && config.has('super_users') && config.get('super_users').indexOf(this.username) !== -1) {
             return true;
         }

@@ -47,50 +47,40 @@ client.on("chat", function (channel, userstate, message, self) {
     // }
 
     switch (command.command) {
-        // case '!caster':
-        // case '!casters':
-        //     if(!serviceCommand.canUseCommand('caster')) {
-        //         break;
-        //     }
-        //     serviceCommand.useCommand('caster');
-        //
-        //     let casters = ['Lapi https://twitch.tv/w_lapin', 'Kusaa https://twitch.tv/kusaaa', 'Tonton https://twitch.tv/krakantas'];
-        //
-        //     casters = shuffle(casters);
-        //
-        //     message = command.target + ' > Casters français: ' + casters.join(' , ');
-        //     client.say(channel, message);
-        //     break;
-        // case '!stuff':
-        // case '!gear':
-        // case '!inspect':
-        // case '!extension':
-        //     if(!serviceCommand.canUseCommand('stuff')) {
-        //         break;
-        //     }
-        //     serviceCommand.useCommand('stuff');
-        //     message = command.target + ' > Tu peux voir le stuff actuel des joueurs grâce à l\'extension Twitch ! Passe ta souris sur le stream et clique sur "Inspect" (en haut à gauche) lapiBLESS';
-        //     client.say(channel, message);
-        //     break;
-        // case '!bracket':
-        //     if(!serviceCommand.canUseCommand('bracket')) {
-        //         break;
-        //     }
-        //     serviceCommand.useCommand('bracket');
-        //
-        //     message = command.target + ' > ' + 'Vous pouvez retrouver le bracket Europe sur http://bit.ly/mdi_europe';
-        //     client.say(channel, message);
-        //     break;
-        // case '!mdi':
-        //     if(!serviceCommand.canUseCommand('mdi')) {
-        //         break;
-        //     }
-        //
-        //     serviceCommand.useCommand('mdi');
-        //
-        //     message = command.target + ' > Toutes les infos sur le Mythic Dungeon Invitational (MDI) ici: https://worldofwarcraft.com/fr-fr/esports/mythic';
-        //     client.say(channel, message);
-        //     break;
+        case '!caster':
+        case '!casters':
+            if(!serviceCommand.canUseCommand('caster')) {
+                break;
+            }
+            serviceCommand.useCommand('caster');
+
+            let casters = ['Lapi https://twitch.tv/w_lapin', 'Kusaa https://twitch.tv/kusaaa', 'Tonton https://twitch.tv/krakantas'];
+
+            casters = shuffle(casters);
+
+            message = command.target + ' > Casters français: ' + casters.join(' , ');
+            client.say(channel, message);
+            break;
+        case '!stuff':
+        case '!gear':
+        case '!inspect':
+        case '!extension':
+            if(!serviceCommand.canUseCommand('stuff')) {
+                break;
+            }
+            serviceCommand.useCommand('stuff');
+            message = command.target + ' > Tu peux voir le stuff actuel des joueurs grâce à l\'extension Twitch ! Passe ta souris sur le stream et clique sur "Inspect" (en haut à gauche) lapiBLESS';
+            client.say(channel, message);
+            break;
+        case '!bracket':
+            if(!serviceCommand.canUseCommand('bracket')) {
+                break;
+            }
+            serviceCommand.useCommand('bracket');
+
+            message = command.target + ' > ' + 'Vous pouvez retrouver le bracket Europe sur https://liquipedia.net/worldofwarcraft/Arena_World_Championship/2018';
+            client.say(channel, message);
+            break;
         case '!music':
         case '!musique':
             if (!serviceCommand.canUseCommand('music', 15)) {
