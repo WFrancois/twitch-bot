@@ -32,7 +32,7 @@ module.exports.serviceCommand = class Command {
 
         this.allowedCommand = {
           "#w_lapin": ['music', 'weather', 'emissary', 'ilvl', 'ilvldk', 'ilvlsham'],
-          "#warcraftfr": ['stuff', 'bracket'],
+          "#warcraftfr": ['stuff', 'bracket', 'caster'],
         };
     }
 

@@ -19,7 +19,7 @@ let options = {
 let client = new tmi.client(options);
 client.connect();
 
-let messageNumber = 10;
+let messageNumber = {};
 client.on("chat", function (channel, userstate, message, self) {
     // Don't listen to my own messages..
     if (self) return;
@@ -37,14 +37,18 @@ client.on("chat", function (channel, userstate, message, self) {
     let serviceCommand = new commandTwitch.serviceCommand(channel, userstate.username);
     let command = commandTwitch.parseInput(message, userstate['display-name']);
 
-    // messageNumber ++;
-    // if(serviceCommand.canUseCommand('see-gear', 600, true) && messageNumber > 10) {
-    //     serviceCommand.useCommand('see-gear');
-    //     messageNumber = 0;
-    //
-    //     message = 'Vous pouvez voir le stuff actuel des joueurs  grâce à l\'extension Twitch ! Passez votre souris sur le stream et cliquez sur "Inspect" (en haut à gauche) lapiBLESS';
-    //     client.say(channel, message);
-    // }
+    if (!messageNumber[channel]) {
+        messageNumber[channel] = 10;
+    }
+    messageNumber[channel] += 1;
+
+    if(serviceCommand.canUseCommand('caster', 600, true) && messageNumber[channel] > 10) {
+        serviceCommand.useCommand('caster');
+      messageNumber[channel] = 0;
+
+        message = 'Retrouvez les casters de cet AWC 2018 sur Twitter : Lapi (twitter.com/LapiTV), Zunniyaki (twitter.com/Zunniyaki_), Haraw (twitter.com/Vitality_Haraw) et Càra (twitter.com/Cara_keepo)';
+        client.say(channel, message);
+    }
 
     switch (command.command) {
         case '!caster':
@@ -54,11 +58,7 @@ client.on("chat", function (channel, userstate, message, self) {
             }
             serviceCommand.useCommand('caster');
 
-            let casters = ['Lapi https://twitch.tv/w_lapin', 'Kusaa https://twitch.tv/kusaaa', 'Tonton https://twitch.tv/krakantas'];
-
-            casters = shuffle(casters);
-
-            message = command.target + ' > Casters français: ' + casters.join(' , ');
+            message = command.target + ' > Retrouvez les casters de cet AWC 2018 sur Twitter : Lapi (twitter.com/LapiTV), Zunniyaki (twitter.com/Zunniyaki_), Haraw (twitter.com/Vitality_Haraw) et Càra (twitter.com/Cara_keepo)';
             client.say(channel, message);
             break;
         case '!stuff':
