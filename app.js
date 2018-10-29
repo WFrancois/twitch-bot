@@ -46,7 +46,7 @@ client.on("chat", function (channel, userstate, message, self) {
         serviceCommand.useCommand('caster');
       messageNumber[channel] = 0;
 
-        message = 'Retrouvez les casters de cet AWC 2018 sur Twitter : Lapi (twitter.com/LapiTV), Zunniyaki (twitter.com/Zunniyaki_), Haraw (twitter.com/Vitality_Haraw) et Càra (twitter.com/Cara_keepo)';
+        message = 'Retrouvez les casters de cet AWC 2018 sur Twitter : Lapi > twitter.com/LapiTV / Zunniyaki > twitter.com/Zunniyaki_ / Haraw > twitter.com/Vitality_Haraw / Càra > twitter.com/Cara_keepo';
         client.say(channel, message);
     }
 
@@ -58,7 +58,7 @@ client.on("chat", function (channel, userstate, message, self) {
             }
             serviceCommand.useCommand('caster');
 
-            message = command.target + ' > Retrouvez les casters de cet AWC 2018 sur Twitter : Lapi (twitter.com/LapiTV), Zunniyaki (twitter.com/Zunniyaki_), Haraw (twitter.com/Vitality_Haraw) et Càra (twitter.com/Cara_keepo)';
+            message = command.target + ' > Retrouvez les casters de cet AWC 2018 sur Twitter : Lapi > twitter.com/LapiTV / Zunniyaki > twitter.com/Zunniyaki_ / Haraw > twitter.com/Vitality_Haraw / Càra > twitter.com/Cara_keepo';
             client.say(channel, message);
             break;
         case '!stuff':
