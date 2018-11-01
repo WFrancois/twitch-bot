@@ -24,6 +24,10 @@ client.on("chat", function (channel, userstate, message, self) {
     // Don't listen to my own messages..
     if (self) return;
 
+    if (message.includes('imGlitch You have been permanently banned from this channel ')) {
+        setTimeout(() => client.ban(channel, userstate.username, 'Spam, whisp Isak_ si erreur'), 1000);
+    }
+
     // Ban bot spam
     // let regexes = [/elena[0-9]*/gi, /^kcanno/gi];
     // for(let regex of regexes) {
