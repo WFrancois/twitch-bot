@@ -31,7 +31,7 @@ module.exports.serviceCommand = class Command {
         this.username = username;
 
         this.allowedCommand = {
-          "#w_lapin": ['music', 'weather', 'emissary', 'ilvl', 'ilvldk', 'ilvlsham'],
+          "#lapi": ['music', 'weather', 'emissary', 'ilvl', 'ilvldk', 'ilvlsham'],
           "#warcraftfr": ['stuff', 'bracket', 'caster'],
         };
     }
@@ -45,7 +45,7 @@ module.exports.serviceCommand = class Command {
     }
 
     canUseCommand(name, seconds = 30, ignoreSuperUser = false) {
-        if (this.allowedCommand[this.channel].indexOf(name) === -1) {
+        if (this.allowedCommand[this.channel] && this.allowedCommand[this.channel].indexOf(name) === -1) {
             return false;
         }
 
