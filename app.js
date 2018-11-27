@@ -131,7 +131,7 @@ client.on("chat", function (channel, userstate, message, self) {
             }
             serviceCommand.useCommand('ilvl');
 
-            commandTwitch.ilvl.getMessage('Lapintade', 'Ysondre', 'Druide').then(messageToSend => {
+            commandTwitch.ilvl.getMessage('Làpi', 'Archimonde', 'Druide').then(messageToSend => {
                 messageToSend = command.target + ' > ' + messageToSend;
                 client.say(channel, messageToSend);
             }).catch(console.warn);
