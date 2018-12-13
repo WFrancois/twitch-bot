@@ -27,7 +27,7 @@ module.exports.getMessage = function () {
 
     let finalText = textToUse.replace('%hours%', duration.hours()).replace('%minutes%', duration.minutes()).replace('%seconds%', duration.seconds());
 
-    // finalText += ' - https://invasion.wisak.me';
+    finalText += ' - https://incursion.wisak.me';
 
     return Promise.resolve(finalText);
 };
