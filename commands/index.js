@@ -31,8 +31,8 @@ module.exports.serviceCommand = class Command {
         this.username = username;
 
         this.allowedCommand = {
-          "#lapi": ['music', 'weather', 'emissary', 'ilvl', 'ilvldk', 'ilvlsham'],
-          "#warcraftfr": ['stuff', 'bracket', 'caster', 'incursion'],
+          "#lapi": ['music', 'weather', 'emissary', 'ilvl', 'ilvldk', 'ilvlsham', 'incursion'],
+          "#warcraftfr": ['stuff', 'bracket', 'caster'],
         };
     }
 
