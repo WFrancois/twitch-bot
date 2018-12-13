@@ -1,13 +1,13 @@
 let moment = require('moment');
 
 let placeholder = {
-    inProgress: 'L\'invasion est en cours pendant %hours% heures et %minutes% minutes',
-    next: 'Prochaine invasion dans %hours% heures et %minutes% minutes'
+    inProgress: 'L\'incursion est en cours pendant %hours% heures et %minutes% minutes',
+    next: 'Prochaine incursion dans %hours% heures et %minutes% minutes'
 };
 
-let timestampDefault = 1491775200;
-let timeInterval = 66600;
-let durationInvasion = 6 * 60 * 60;
+let timestampDefault = 1544648400;
+let timeInterval = (12 + 7) * 60 * 60;
+let durationInvasion = 7 * 60 * 60;
 
 module.exports.getMessage = function () {
     let currentTime = parseInt((new Date()).getTime() / 1000);
@@ -27,7 +27,7 @@ module.exports.getMessage = function () {
 
     let finalText = textToUse.replace('%hours%', duration.hours()).replace('%minutes%', duration.minutes()).replace('%seconds%', duration.seconds());
 
-    finalText += ' - https://invasion.wisak.me';
+    // finalText += ' - https://invasion.wisak.me';
 
     return Promise.resolve(finalText);
 };

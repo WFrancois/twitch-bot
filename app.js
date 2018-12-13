@@ -170,6 +170,18 @@ client.on("chat", function (channel, userstate, message, self) {
                 client.say(channel, messageToSend);
             }).catch(console.warn);
             break;
+      case '!incursion':
+      case '!incursions':
+        if (!serviceCommand.canUseCommand('incursion')) {
+          break;
+        }
+        serviceCommand.useCommand('incursion');
+
+        commandTwitch.invasion.getMessage().then(messageToSend => {
+          messageToSend = command.target + ' > ' + messageToSend;
+          client.say(channel, messageToSend);
+        }).catch(console.warn);
+        break;
     }
 });
 
