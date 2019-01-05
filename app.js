@@ -172,6 +172,10 @@ client.on("chat", function (channel, userstate, message, self) {
             break;
       case '!incursion':
       case '!incursions':
+      case '!assaut':
+      case '!assault':
+      case '!assauts':
+      case '!assaults':
         if (!serviceCommand.canUseCommand('incursion')) {
           break;
         }
