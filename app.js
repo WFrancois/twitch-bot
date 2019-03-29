@@ -50,7 +50,7 @@ client.on("chat", function (channel, userstate, message, self) {
         serviceCommand.useCommand('caster');
       messageNumber[channel] = 0;
 
-        message = 'Retrouvez les casters de cet AWC 2018 sur Twitter : Lapi > twitter.com/LapiTV / Zunniyaki > twitter.com/Zunniyaki_ / Haraw > twitter.com/Vitality_Haraw / Càra > twitter.com/Cara_keepo';
+        message = 'Retrouvez les casters de cet AWC 2018 sur Twitter : Lapi > twitter.com/LapiTV / Kusa > twitter.com/kusa_alex';
         client.say(channel, message);
     }
 
@@ -62,7 +62,7 @@ client.on("chat", function (channel, userstate, message, self) {
             }
             serviceCommand.useCommand('caster');
 
-            message = command.target + ' > Retrouvez les casters de cet AWC 2018 sur Twitter : Lapi > twitter.com/LapiTV / Zunniyaki > twitter.com/Zunniyaki_ / Haraw > twitter.com/Vitality_Haraw / Càra > twitter.com/Cara_keepo';
+            message = command.target + ' > Retrouvez les casters de cet AWC 2018 sur Twitter : Lapi > twitter.com/LapiTV / Kusa > twitter.com/kusa_alex';
             client.say(channel, message);
             break;
         case '!stuff':
@@ -82,7 +82,7 @@ client.on("chat", function (channel, userstate, message, self) {
             }
             serviceCommand.useCommand('bracket');
 
-            message = command.target + ' > ' + 'Vous pouvez retrouver le bracket sur https://blizzcon.com/en-us/esports/wow';
+            message = command.target + ' > ' + 'Vous pouvez retrouver le bracket sur https://bit.ly/mdi-spring-2019-west1';
             client.say(channel, message);
             break;
         case '!music':
