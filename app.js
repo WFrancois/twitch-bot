@@ -50,7 +50,7 @@ client.on("chat", function (channel, userstate, message, self) {
         serviceCommand.useCommand('caster');
       messageNumber[channel] = 0;
 
-        message = 'Retrouvez les casters de cet AWC 2018 sur Twitter : Lapi > twitter.com/LapiTV / Kusa > twitter.com/kusa_alex';
+        message = 'Retrouvez les casters de ces MDI 2019 sur Twitter : Lapi > twitter.com/LapiTV / Kusa > twitter.com/kusa_alex';
         client.say(channel, message);
     }
 
@@ -62,7 +62,7 @@ client.on("chat", function (channel, userstate, message, self) {
             }
             serviceCommand.useCommand('caster');
 
-            message = command.target + ' > Retrouvez les casters de cet AWC 2018 sur Twitter : Lapi > twitter.com/LapiTV / Kusa > twitter.com/kusa_alex';
+            message = command.target + ' > Retrouvez les casters de ces MDI 2019 sur Twitter : Lapi > twitter.com/LapiTV / Kusa > twitter.com/kusa_alex';
             client.say(channel, message);
             break;
         case '!stuff':
