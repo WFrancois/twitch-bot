@@ -42,7 +42,7 @@ client.on("chat", function (channel, userstate, message, self) {
     let command = commandTwitch.parseInput(message, userstate['display-name']);
 
     if (!messageNumber[channel]) {
-        messageNumber[channel] = 10;
+        messageNumber[channel] = 0;
     }
     messageNumber[channel] += 1;
 
