@@ -46,14 +46,6 @@ client.on("chat", function (channel, userstate, message, self) {
     }
     messageNumber[channel] += 1;
 
-    if(serviceCommand.canUseCommand('caster', 600, true) && messageNumber[channel] > 10) {
-        serviceCommand.useCommand('caster');
-        messageNumber[channel] = 0;
-
-        message = 'Retrouvez les casters de ces MDI 2019 sur Twitter : Lapi > twitter.com/LapiTV / Kusa > twitter.com/kusa_alex';
-        client.say(channel, message);
-    }
-
     switch (command.command) {
         case '!caster':
         case '!casters':
