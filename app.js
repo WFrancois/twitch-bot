@@ -54,7 +54,7 @@ client.on("chat", function (channel, userstate, message, self) {
             }
             serviceCommand.useCommand('caster');
 
-            message = command.target + ' > Retrouvez les casters de ces MDI 2019 sur Twitter : Lapi > twitter.com/LapiTV / Kusa > twitter.com/kusa_alex';
+            message = command.target + ' > Retrouvez les casters de ces MDI 2019 sur Twitter : Lapi > twitter.com/LapiTV | twitch.tv/lapi / Kusa > twitter.com/kusa_alex | twitch.tv/kusa';
             client.say(channel, message);
             break;
         case '!stuff':
