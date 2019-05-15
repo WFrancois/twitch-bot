@@ -59,7 +59,7 @@ module.exports.run = function(client, channel, userstate, message) {
                 displayLeft = Math.floor(timeLeft / 60) + ' minute(s)';
             }
 
-            if(row.answertypeid === 6) {
+            if(row.answertypeid === 6 || row.answertypeid === 8) {
                 messageToSend += ' | Pendant ' + displayLeft + '.';
             } else {
                 messageToSend += ' | Pendant ' + displayLeft + '. Faites "!vote" pour voter !';
@@ -71,7 +71,7 @@ module.exports.run = function(client, channel, userstate, message) {
 
         let command = commandTwitch.parseInput(message, userstate['username']);
 
-        if (row.answertypeid !== 6 && command.command === '!vote') {
+        if (row.answertypeid !== 6 && row.answertypeid !== 8 && command.command === '!vote') {
             clientDb.query('SELECT * FROM vote WHERE betid = $1 AND username = $2', [row.id, userstate['username']]).then((dataVote) => {
                 if(dataVote.rows.length) {
                     clientDb.query('UPDATE vote SET answer = $1 WHERE id = $2', [message.slice(6), dataVote.rows[0].id]).then(() => {});
@@ -98,5 +98,31 @@ module.exports.run = function(client, channel, userstate, message) {
                 }
             });
         }
+
+      if(row.answertypeid === 8) {
+        let answer = /^([1-9]+)\s*/.exec(message);
+
+        if(!answer) {
+          return;
+        }
+
+        answer = parseInt(answer[0]);
+
+        const choice = row.parameter['choices'].find((element) => element.key === answer);
+
+        if (!choice) {
+            return;
+        }
+
+        answer = choice.label;
+
+        clientDb.query('SELECT * FROM vote WHERE betid = $1 AND username = $2', [row.id, userstate['username']]).then((dataVote) => {
+          if(dataVote.rows.length) {
+            clientDb.query('UPDATE vote SET answer = $1 WHERE id = $2', [answer, dataVote.rows[0].id]).then(() => {});
+          } else {
+            clientDb.query('INSERT INTO vote(betid, username, answer) VALUES($1, $2, $3)', [row.id, userstate.username, answer]).then(() => {});
+          }
+        });
+      }
     });
 };
