@@ -25,7 +25,7 @@ client.on("chat", function (channel, userstate, message, self) {
     if (self) return;
 
     if (message.includes('imGlitch You have been permanently banned from this channel ')) {
-        setTimeout(() => client.ban(channel, userstate.username, 'Spam, whisp Isak_ si erreur'), 1000);
+        setTimeout(() => client.timeout(channel, userstate.username, 'Spam, whisp Isak_ si erreur', 3600), 1000);
     }
 
     // Ban bot spam
