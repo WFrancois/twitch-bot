@@ -4,7 +4,7 @@ const request = require('request');
 module.exports.isOnline = function(channelName) {
     return new Promise((resolve, reject) => {
         request({
-            url: 'https://api.twitch.tv/kraken/streams/' + channelName,
+            url: 'https://api.twitch.tv/helix/streams?user_login=' + channelName,
             headers: {
                 'Client-ID': config.get('twitch.client_id')
             },
@@ -14,7 +14,7 @@ module.exports.isOnline = function(channelName) {
                 return reject(error);
             }
 
-            resolve(!!body.stream);
+            resolve(!!body.data[0]);
         });
     });
 };
