@@ -62,8 +62,8 @@ module.exports.run = function(client, channel, userstate, message) {
             if(row.answertypeid === 6 || row.answertypeid === 8) {
                 messageToSend += ' | Pendant ' + displayLeft + '.';
             } else {
-                messageToSend += ' | Pendant ' + displayLeft + '. Faites "!vote" pour voter !';
-                messageToSend += ' (Par exemple : !vote ' + answerTypes[row.answertypeid].placeholder + ')';
+                messageToSend += ' | Pendant ' + displayLeft + '. Faites "!vote" un espace puis le mot magique pour que votre vote soit pris en compte !';
+                messageToSend += ' (Exemple : !vote ' + answerTypes[row.answertypeid].placeholder + ')';
             }
 
             client.say(channel, messageToSend);
