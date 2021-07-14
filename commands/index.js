@@ -32,7 +32,7 @@ module.exports.serviceCommand = class Command {
 
         this.allowedCommand = {
           '#kusa': ['music'],
-          "#lapi": ['music', 'weather', 'emissary', 'incursion'],
+          "#lapi": ['music', 'weather', 'emissary', 'incursion', 'try'],
         };
     }
 

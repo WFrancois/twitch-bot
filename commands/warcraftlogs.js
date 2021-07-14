@@ -1,153 +1,28 @@
 const config = require('config');
 const request = require('request');
 
-const MAP_DIFFICULTY = {
-    3: {
-        shortName: 'NM',
-        name: 'Normal',
-    },
-    4: {
-        shortName: 'HM',
-        name: 'Heroic',
-    },
-    5: {
-        shortName: 'MM',
-        name: 'Mythic',
-    }
-};
-
-const bossIds = [2136, 2134, 2128, 2145, 2122];
-
-let cacheWarcraftLogs = [];
-
-module.exports.getMessage = async function () {
-    const reportCodes = config.get('wlog.report_code');
-
-    let fetchPull = [];
-
-    for (const reportCode of reportCodes) {
-        fetchPull.push(getDataWarcraftLogs(reportCode));
-    }
-
-    const reportData = await Promise.all(fetchPull);
-
-    const bossesInfo = mergeReportData(reportData);
-
-    let orderedBossInfo = [];
-
-    for (const bossId of bossIds) {
-        if( bossesInfo[bossId]) {
-            orderedBossInfo.push(bossesInfo[bossId]);
-        }
-    }
-
-    const messageSplitted = [];
-    for (const bossInfo of orderedBossInfo) {
-        let message = bossInfo.name + ': ' + bossInfo.pull;
-        if (bossInfo.killed) {
-            message += ' pull';
-
-            // Only display kills from the last two days
-            if ((new Date().getTime()) - (bossInfo.killedTime) > 48 * 60 * 60 * 1000) {
-                continue;
-            }
-        } else {
-            message += ' try';
-
-            const minPercent = Math.min(...bossInfo.percents) / 100;
-            const lastTry = bossInfo.percents[bossInfo.percents.length - 1] / 100;
-
-            message += ` (Best try: ${minPercent}%, Last try: ${lastTry}%)`;
-        }
-
-        messageSplitted.push(message);
-    }
-
-    return messageSplitted.join(' / ');
-};
-
-function getDataWarcraftLogs(reportCode) {
+module.exports.getMessage = function () {
     return new Promise((resolve, reject) => {
-        if (cacheWarcraftLogs[reportCode]) {
-            return resolve(cacheWarcraftLogs[reportCode]);
-        }
-
-        const url = `https://www.warcraftlogs.com/v1/report/fights/${reportCode}?api_key=${config.get('wlog.api_key')}`;
+        const url = `https://raider.io/api/v1/live-tracking/bossprogress?raid=sanctum-of-domination&difficulty=mythic&region=eu&realm=archimonde&guild=Impact&boss=latest`;
 
         request(url, (error, response, body) => {
             if (error) {
                 reject(error);
             }
 
-            let bossesInfo = [];
+            const bossProgress = JSON.parse(body);
 
-            body = JSON.parse(body);
+            const raidProgressUrl = `https://raider.io/api/v1/raiding/raid-rankings?raid=sanctum-of-domination&difficulty=mythic&region=eu&realm=archimonde&guilds=861322`;
 
-            for (const fight of body.fights) {
-                if (!fight.boss || fight.affixes || bossIds.indexOf(fight.boss) === -1 || fight.difficulty !== 5) {
-                    continue;
-                }
+            request(raidProgressUrl, (rError, rResponse, rBody) => {
+                const raidProgress = JSON.parse(rBody);
 
-                const fightDuration = fight.end_time - fight.start_time;
+                const bossKilled = raidProgress.raidRankings[0].encountersDefeated.length;
 
-                if (fightDuration / 1000 < 10) {
-                    continue;
-                }
+                const percentMessage = bossProgress.isDefeated ? 'killed!' : `best pull: ${bossProgress.bestPercent}%,`
 
-                const fightName = `${fight.name} (${MAP_DIFFICULTY[fight.difficulty].shortName})`;
-
-                if (!bossesInfo[fight.name]) {
-                    bossesInfo[fight.name] = {boss: fight.boss, killed: false, pull: 0, name: fightName, percents: []};
-                }
-
-                bossesInfo[fight.name].pull += 1;
-                bossesInfo[fight.name].percents.push(fight.fightPercentage);
-
-                if (fight.kill) {
-                    bossesInfo[fight.name].killed = true;
-                    bossesInfo[fight.name].killedTime = body.start + fight.start_time;
-                }
-            }
-
-            if ((new Date()).getTime() - body.end > 12 * 60 * 60 * 1000) {
-                cacheWarcraftLogs[reportCode] = bossesInfo;
-            }
-
-            return resolve(bossesInfo);
+                return resolve(`[Progress Sanctum: ${bossKilled}/10] Actuellement sur ${bossProgress.boss.name} : ${percentMessage} ${bossProgress.pullCount} ${bossProgress.pullCount > 1 ? 'pulls' : 'pull'}. Powered by Raider.IO`);
+            });
         })
     });
-}
-
-function mergeReportData (reportData) {
-    const bossInfo = {};
-
-    for (const reportDatum of reportData) {
-        for (let key in reportDatum) {
-            if (!reportDatum.hasOwnProperty(key)) continue;
-
-            const fight = reportDatum[key];
-
-            if (!bossInfo[fight.boss]) {
-                bossInfo[fight.boss] = {
-                    boss: fight.boss,
-                    killed: false,
-                    pull: 0,
-                    name: fight.name,
-                    percents: []
-                }
-            }
-
-            if (!fight.killed) {
-                bossInfo[fight.boss].pull += fight.pull;
-                bossInfo[fight.boss].percents.push(...fight.percents);
-            }
-
-            if (fight.killed) {
-                bossInfo[fight.boss].killed = true;
-                bossInfo[fight.boss].killedTime = fight.killedTime;
-            }
-        }
-    }
-
-    return bossInfo;
-}
+};
