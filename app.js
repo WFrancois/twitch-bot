@@ -152,6 +152,8 @@ client.on("chat", function (channel, userstate, message, self) {
             break;
         case '!try':
         case '!besttry':
+        case '!best':
+        case '!pull':
             if (!serviceCommand.canUseCommand('try')) {
                 break;
             }
