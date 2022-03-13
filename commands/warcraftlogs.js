@@ -21,7 +21,7 @@ module.exports.getMessage = function () {
 
                 const percentMessage = bossProgress.isDefeated ? 'killed!' : `best pull: ${bossProgress.bestPercent}%,`
 
-                return resolve(`[Progress Sepulcher: ${bossKilled}/10] Actuellement sur ${bossProgress.boss.name} : ${percentMessage} ${bossProgress.pullCount} ${bossProgress.pullCount > 1 ? 'pulls' : 'pull'}. Powered by Raider.IO`);
+                return resolve(`[Progress Sepulcher: ${bossKilled}/11] Actuellement sur ${bossProgress.boss.name} : ${percentMessage} ${bossProgress.pullCount} ${bossProgress.pullCount > 1 ? 'pulls' : 'pull'}. Powered by Raider.IO`);
             });
         })
     });
