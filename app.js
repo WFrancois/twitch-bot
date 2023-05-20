@@ -1,4 +1,4 @@
-let tmi = require('twitch-js');
+const tmi = require('tmi.js');
 let config = require('config');
 let commandTwitch = require('./commands');
 
@@ -23,10 +23,6 @@ let messageNumber = {};
 client.on("chat", function (channel, userstate, message, self) {
     // Don't listen to my own messages..
     if (self) return;
-
-    if (message.includes('imGlitch You have been permanently banned from this channel ')) {
-        setTimeout(() => client.timeout(channel, userstate.username, 'Spam, whisp Isak_ si erreur', 3600), 1000);
-    }
 
     // Ban bot spam
     // let regexes = [/elena[0-9]*/gi, /^kcanno/gi];
