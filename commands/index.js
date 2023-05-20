@@ -32,6 +32,8 @@ module.exports.serviceCommand = class Command {
 
         this.allowedCommand = {
           '#kusa': ['music'],
+          '#maystine': ['music'],
+          '#batsii__': ['music'],
           "#lapi": ['music', 'weather', 'emissary', 'incursion', 'try'],
         };
     }
