@@ -75,6 +75,8 @@ client.on("chat", function (channel, userstate, message, self) {
             break;
         case '!music':
         case '!musique':
+        case '!son':
+        case '!song':
             if (!serviceCommand.canUseCommand('music', 15)) {
                 break;
             }
